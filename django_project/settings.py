@@ -1,6 +1,6 @@
 from pathlib import Path
 from environs import Env  # new
-
+import os
 env = Env()  # new
 env.read_env()  # new
 
@@ -17,8 +17,8 @@ SECRET_KEY = "django-insecure-!i1taz@my6u5yr09vw75lg*qo=d-**lr_#!!^r5t9(0oo2&t35
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ ]
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -69,7 +69,10 @@ WSGI_APPLICATION = "django_project.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": env.dj_db_url("DATABASE_URL", default="sqlite:///db.sqlite3"),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  # Verifica esta ruta
+    }
 }
 
 
